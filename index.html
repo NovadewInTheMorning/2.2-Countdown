@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>2.2 Countdown</title>
+    <style>
+        body {
+            margin-top: 20%;
+            font-family: Arial, sans-serif;
+            font-size: 90px;
+            font-weight: bold;
+            text-align: center;
+            pointer-events: none;
+            user-drag: none;
+           -webkit-user-drag: none;
+           -moz-user-select: none;
+           -webkit-user-select: none;
+           -ms-user-select: none;
+           user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="countdown"></div>
+    <audio id="music" loop><source src="music.mp3" type="audio/mpeg"></audio>
+
+    <script>
+        document.addEventListener('click', () => {
+            document.getElementById("music").play();
+        });
+
+        function update() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    document.getElementById('countdown').textContent = this.responseText;
+                }
+            };
+            xhttp.open("GET", "countdown.php", true);
+            xhttp.send();
+        }
+
+        update();
+        setInterval(update, 1000);
+        alert("Due to Chrome autoplay policy, You must click to start the music.");
+    </script>
+</body>
+</html>
